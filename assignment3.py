@@ -43,5 +43,32 @@ print(f"Image requests account for "+ str(image_hits/len(dataDict)* 100)+ " of a
 
 
 
- 
+firefox_pattern = r'Firefox'
+chrome_pattern = r'Chrome'
+ie_pattern = r'MSIE'
+safari_pattern = r'Safari'
+
+
+# Initialize counters for each browser
+firefox_count = 0
+chrome_count = 0
+ie_count = 0
+safari_count = 0
+
+
+for x in dataDict:
+     browser_name=dataDict[x][2]
+     if re.search(firefox_pattern, browser_name):
+            firefox_count += 1
+     elif re.search(chrome_pattern, browser_name):
+            chrome_count += 1
+     elif re.search(ie_pattern, browser_name):
+            ie_count += 1
+     elif re.search(safari_pattern, browser_name):
+            safari_count += 1
+
+print (f"Firefox Hits:{firefox_count}   Safari Hits:{safari_count}     MSIE Hits:{ie_count}      Chrome Hits:{chrome_count}")
+print("Chrome is the popular !!!!")
+
+
 
