@@ -6,6 +6,7 @@ from datetime import datetime
 import sys
 import argparse
 
+'''<--------------------------------------<donnloadData from url ---------------------------------->'''
 def downloadData(url):
 
     with urllib.request.urlopen(url) as response:
@@ -14,14 +15,13 @@ def downloadData(url):
     
 
 
-#url_data = downloadData("http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv")
+'''<----------<ProcessData from url/csv data to user defined dicionary> ------------->'''
+
 def processData(url_data):
     csv_data = csv.reader(io.StringIO(url_data))
     dataDict={}
     row_id=0
     for row in csv_data:
-       
-
         path = row[0]
         datetime_accessed = row[1]
         browser = row[2]
@@ -31,9 +31,10 @@ def processData(url_data):
 
         dataDict[int(row_id)]= (path,time,browser)
         row_id=row_id+1
+    return dataDict
 
 
-
+'''<---------------------<Image Extension Hit Count in Data in perecntage> ----------------------->'''
 def imageHit(dataDict):
     image_pattern = re.compile(r'\.(jpg|gif|png|jpeg|tiff|svg|bmp|)$', re.IGNORECASE)
     image_hits = 0
@@ -41,8 +42,12 @@ def imageHit(dataDict):
         file_name=dataDict[x][0]
         if re.search(image_pattern, file_name):
                 image_hits += 1
-    print(f"Image requests account for "+ str(image_hits/len(dataDict)* 100)+ " of all requests")
+    print(f"Image requests account for "+ str(image_hits/len(dataDict)* 100)+"%"+" of all requests")
 
+
+
+
+'''<----------<Popular Browser Search Hit in Data> ------------->'''
 def browserHit(dataDict):
 
     firefox_pattern = r'Firefox'
@@ -102,27 +107,16 @@ def timeHit(dataDict):
 def main(url) :
 
     downloadedData = downloadData(url)
-
-    personData=processData(downloadedData)
-
-    
-    while True:
-        print ("Please enter an ID to look up:")
-        input_id=int(input())
-        if input_id <= 0:
-            print("Exiting the program.")
-            sys.exit()
-        else:
-            displayPerson(input_id, personData)
-    
-
-
-
-
-
+    dataDict=processData(downloadedData)
+    print("\n")
+    imageHit(dataDict)
+    print("\n")
+    browserHit(dataDict)
+    print("\n")
+    timeHit(dataDict)
 
 if __name__ == "__main__":
-     # url = "https://s3.amazonaws.com/cuny-is211-spring2015/birthdays100.csv"
+  #url_data = downloadData("http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv")
     parser = argparse.ArgumentParser()
     parser.add_argument("url", type=str, help="URL parameter without any double quotation")
     args = parser.parse_args()
@@ -132,7 +126,5 @@ if __name__ == "__main__":
         print("URL Invalid. Exiting the program.")
         sys.exit()
 
-
-'''
 
 
