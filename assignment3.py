@@ -1,6 +1,7 @@
 import csv
 import io 
 import urllib.request
+import re
 
 def downloadData(url):
 
@@ -20,11 +21,14 @@ for row in csv_data:
         path = row[0]
         datetime_accessed = row[1]
         browser = row[2]
-        # i need only time 
+        #need only time 
         time_accessed= datetime_accessed.split(' ')
         time=time_accessed[1]
 
         dataDict[int(row_id)]= (path,time,browser)
         row_id=row_id+1
 
-print(dataDict)
+#print(dataDict)
+image_pattern = re.compile(r'\.(jpg|gif|png|jpeg|tiff|svg|bmp|)$', re.IGNORECASE)
+
+
