@@ -30,5 +30,18 @@ for row in csv_data:
 
 #print(dataDict)
 image_pattern = re.compile(r'\.(jpg|gif|png|jpeg|tiff|svg|bmp|)$', re.IGNORECASE)
+total_hits = 0
+image_hits = 0
+for x in dataDict:
+     #total_hits += 1
+     file_name=dataDict[x][0]
+     if re.search(image_pattern, file_name):
+            image_hits += 1
 
+
+print(f"Image requests account for "+ str(image_hits/len(dataDict)* 100)+ " of all requests")
+
+
+
+ 
 
