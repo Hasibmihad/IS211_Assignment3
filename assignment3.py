@@ -2,6 +2,8 @@ import csv
 import io 
 import urllib.request
 import re
+from datetime import datetime
+
 
 def downloadData(url):
 
@@ -73,6 +75,16 @@ print("Chrome is the popular !!!!")
 
 
 ''' -------------------------------- Extra Credit -------------------------------------- '''
+newHitCount={}
+for x in dataDict:
+        time = dataDict[x][1]
+        
+       
+        hit_time = datetime.strptime(time, '%H:%M:%S')
+        hour = hit_time.hour
+        
+        # Update the hit count for the corresponding hour
+        hourly_hits[hour] += 1
 
 
 
