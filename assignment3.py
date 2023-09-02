@@ -49,7 +49,7 @@ ie_pattern = r'MSIE'
 safari_pattern = r'Safari'
 
 
-# Initialize counters for each browser
+
 firefox_count = 0
 chrome_count = 0
 ie_count = 0
@@ -70,5 +70,59 @@ for x in dataDict:
 print (f"Firefox Hits:{firefox_count}   Safari Hits:{safari_count}     MSIE Hits:{ie_count}      Chrome Hits:{chrome_count}")
 print("Chrome is the popular !!!!")
 
+
+
+''' -------------------------------- Extra Credit -------------------------------------- '''
+
+
+
+
+
+
+
+'''
+
+
+
+
+
+
+def main(url) :
+
+    logger=loggerSetup()
+
+    downloadedData = downloadData(url,logger)
+
+    personData=processData(downloadedData,logger)
+
+    
+    while True:
+        print ("Please enter an ID to look up:")
+        input_id=int(input())
+        if input_id <= 0:
+            print("Exiting the program.")
+            sys.exit()
+        else:
+            displayPerson(input_id, personData)
+    
+
+
+
+
+
+
+if __name__ == "__main__":
+     # url = "https://s3.amazonaws.com/cuny-is211-spring2015/birthdays100.csv"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url", type=str, help="URL parameter without any double quotation")
+    args = parser.parse_args()
+    if args.url:
+           main(args.url)
+    else:
+        print("URL Invalid. Exiting the program.")
+        sys.exit()
+
+
+'''
 
 
