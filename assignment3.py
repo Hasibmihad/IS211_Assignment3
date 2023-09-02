@@ -94,7 +94,10 @@ for x in dataDict:
 
         newHitCount[hour] += 1
 
-
+sorted_count = sorted(newHitCount.items(), key=lambda x:x[1],reverse=True)
+#print(sorted_count)
+for x in sorted_count:
+      print (f"Hour {x[0]} has {x[1]} Hits ")
 
 
 
