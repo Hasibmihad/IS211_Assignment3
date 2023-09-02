@@ -83,9 +83,10 @@ for x in dataDict:
         time = dataDict[x][1]
         
         hit_time = datetime.strptime(time, '%H:%M:%S')
-        hour = hit_time.hour
+        hour = str(hit_time.hour)
+        print(hour)
         
-        newHitCount[hour] += 1
+        #newHitCount[hour] += 1
 
 
 
